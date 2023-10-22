@@ -15,27 +15,45 @@
 
 import requests
 from bs4 import BeautifulSoup
+import lxml
 
 # URL = "https://www.amazon.com/dp/B01NBKTPTS?ref_=cm_sw_r_cp_ud_ct_FM9M699VKHTT47YD50Q6&th=1"
+URL = "https://www.emag.ro/televizor-lg-oled-121-cm-smart-4k-ultra-hd-clasa-g-oled48c22lb/pd/D8R6MVMBM/"
 # URL = "https://www.google.ro"
-URL = "https://www.amazon.com/dp/B09C8ZTJZJ/ref=twister_B0CBSTLB28?_encoding=UTF8&th=1"
+# URL = "https://www.amazon.com/dp/B09C8ZTJZJ/ref=twister_B0CBSTLB28?_encoding=UTF8&th=1"
 USER_AGENT = "User-Agent:Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36"
 ACCEPT_LANGUAGE = "en-US,en;q=0.9"
 
 headers = {
     'Accept-Language': ACCEPT_LANGUAGE,
     'User-Agent':'Defined',
+    'Cookie': "PHPSESSID=d646dab3bba3752a728f935bb50aabd2; _ga=GA1.2.2112563536.1696157177; _gid=GA1.2.940917246.1697955090; _ga_VL41109FEB=GS1.2.1697955089.7.0.1697955089.0.0.0"
     }
 
 ## passing headers in our request
-response = requests.get(url=URL,headers=headers)
-
+response = requests.get(url=URL)
 print(response)
 webpage = response.text
-print(webpage)
+# print(webpage)
 
 soup = BeautifulSoup(webpage, 'lxml')
-
+# print(soup)
+# product_price = soup.select("div div span span")
+# product_price = soup.find(name="div", class_="a-section a-spacing-micro")
+# product_price_span = product_price.find(name="span", class_="a-price-whole")
+# product_price = soup.find_all(name="span")
+# # product_price = soup.select(".a-price[data-a-size=xl]")
+# # product_price = soup.find(name="div",id="apex_offerDisplay_desktop")
+product_price = soup.find(name="p",class_="product-new-price").getText()
+product_price = product_price.split('Lei')[0]
+product_price = product_price.replace('.','')
+product_price = product_price.replace(' ','')
+product_price = product_price.replace(',','.')
+print(product_price)
+print("****************")
+print(type(product_price))
+#
+product_price_float = float(product_price)
 
 
 
