@@ -16,6 +16,7 @@
 import requests
 from bs4 import BeautifulSoup
 import lxml
+import smtplib
 
 # URL = "https://www.amazon.com/dp/B01NBKTPTS?ref_=cm_sw_r_cp_ud_ct_FM9M699VKHTT47YD50Q6&th=1"
 URL = "https://www.emag.ro/televizor-lg-oled-121-cm-smart-4k-ultra-hd-clasa-g-oled48c22lb/pd/D8R6MVMBM/"
@@ -23,6 +24,8 @@ URL = "https://www.emag.ro/televizor-lg-oled-121-cm-smart-4k-ultra-hd-clasa-g-ol
 # URL = "https://www.amazon.com/dp/B09C8ZTJZJ/ref=twister_B0CBSTLB28?_encoding=UTF8&th=1"
 USER_AGENT = "User-Agent:Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36"
 ACCEPT_LANGUAGE = "en-US,en;q=0.9"
+
+TARGET_PRICE = 5000
 
 headers = {
     'Accept-Language': ACCEPT_LANGUAGE,
@@ -54,6 +57,25 @@ print("****************")
 print(type(product_price))
 #
 product_price_float = float(product_price)
+product_title = soup.find(name="h1",class_="page-title")
+product_title = product_title.getText()
+#
+# print("Title este: ",product_title)
 
+### cand product_price_float <= TARGET_PRICE >> trimit email notificare
 
+my_email = "testing.stuff443@gmail.com"
+password = "kimuiopgizgflalx"
+
+if product_price_float <= TARGET_PRICE:
+
+    with smtplib.SMTP("smtp.gmail.com") as connection:
+
+        connection.starttls() #encrypts the message, secures the message
+        connection.login(user=my_email, password=password)
+        connection.sendmail(from_addr=my_email, to_addrs="roxana.p.stoica@gmail.com",
+                            msg=f"Subject:Alerta pret {product_title}\n\nPretul la produsul: {product_title} \n\n"
+                                f"a scazut, acum este {product_price_float} Lei\n\n"
+                                f"Cumpara aici: {URL}"
+                            )
 
