@@ -19,7 +19,8 @@ import lxml
 import smtplib
 
 # URL = "https://www.amazon.com/dp/B01NBKTPTS?ref_=cm_sw_r_cp_ud_ct_FM9M699VKHTT47YD50Q6&th=1"
-URL = "https://www.emag.ro/televizor-lg-oled-121-cm-smart-4k-ultra-hd-clasa-g-oled48c22lb/pd/D8R6MVMBM/"
+URL = "https://www.yves-rocher.ro/apa_de_parfum_sel_dazur_100ml_pn"
+
 # URL = "https://www.google.ro"
 # URL = "https://www.amazon.com/dp/B09C8ZTJZJ/ref=twister_B0CBSTLB28?_encoding=UTF8&th=1"
 USER_AGENT = "User-Agent:Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36"
